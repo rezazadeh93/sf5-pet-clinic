@@ -1,4 +1,4 @@
-package sf5petclinic;
+package com.springframework.sf5petclinic;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
