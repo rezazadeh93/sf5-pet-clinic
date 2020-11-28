@@ -14,7 +14,7 @@
     </parent>
     <groupId>com.springframework</groupId>
     <artifactId>sf5-pet-clinic</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>sf5-pet-clinic</name>
     <description>Spring framework project for Pet Clinic</description>
 
@@ -37,7 +37,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <goals>install</goals>
-<!--                    <autoVersionSubmodules>true</autoVersionSubmodules>-->
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
 
                     <checkModificationExcludes>
                         <checkModificationExclude>pom.xml</checkModificationExclude>
@@ -47,4 +47,8 @@
 
         </plugins>
     </build>
+    <scm>
+        <developerConnection>scm:git:https://github.com/rezazadeh93/sf5-pet-clinic.git</developerConnection>
+      <tag>sf5-pet-clinic-0.0.2</tag>
+  </scm>
 </project>
