@@ -3,11 +3,11 @@ package com.springframework.sf5petclinic.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@RequestMapping("/owners")
 @Controller
-public class IndexController {
-
+public class OwnerController {
     @RequestMapping({"", "/", "index", "index.html"})
-    public String getIndex() {
-        return "index";
+    public String ownersList() {
+        return "owners/index";
     }
 }
