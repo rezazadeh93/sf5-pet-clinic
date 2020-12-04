@@ -5,6 +5,21 @@
     <title>List of Vets</title>
 </head>
 <body>
-    <h1 th:text="'List of vets'">List of vets ........</h1>
+<!--<@thymeVar id="vet" type="com.springframework.sf5petclinic.model.Vet" />-->
+
+<h1 th:text="'List of vets'">List of vets ........</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+    </tr>
+    <tr th:each="vet : ${vets}">
+        <td th:text="${vet.id}">id</td>
+        <td th:text="${vet.firstName}">first</td>
+        <td th:text="${vet.lastName}">last</td>
+    </tr>
+</table>
 </body>
 </html>

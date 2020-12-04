@@ -32,6 +32,8 @@ public class DataLoader implements CommandLineRunner {
         ownerTemp.setLastName("Tyson");
         serviceOwner.save(ownerTemp);
 
+        System.out.println("Owner Data loaded ...");
+
         Vet vetTemp = new Vet();
         vetTemp.setId(1L);
         vetTemp.setFirstName("LeBron");
@@ -44,6 +46,6 @@ public class DataLoader implements CommandLineRunner {
         vetTemp.setLastName("Cruise");
         serviceVet.save(vetTemp);
 
-        System.out.println("Data loaded ...");
+        System.out.println("Vet Data loaded ...");
     }
 }
