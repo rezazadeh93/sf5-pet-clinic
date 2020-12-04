@@ -1,11 +1,11 @@
 package com.springframework.sf5petclinic.services.map;
 
 import com.springframework.sf5petclinic.model.Vet;
-import com.springframework.sf5petclinic.services.CrudService;
+import com.springframework.sf5petclinic.services.ServiceVet;
 
 import java.util.Set;
 
-public class ServiceMapVet extends AbstractMapService<Vet, Long> implements CrudService<Vet, Long> {
+public class ServiceMapVet extends AbstractMapService<Vet, Long> implements ServiceVet {
     @Override
     public Vet findByID(Long id) {
         return super.findByID(id);
@@ -17,7 +17,7 @@ public class ServiceMapVet extends AbstractMapService<Vet, Long> implements Crud
     }
 
     @Override
-    public Vet Save(Vet object) {
+    public Vet save(Vet object) {
         return super.save(object.getId(), object);
     }
 
