@@ -1,11 +1,9 @@
 package com.springframework.sf5petclinic.bootstrap;
 
-import com.springframework.sf5petclinic.model.Owner;
-import com.springframework.sf5petclinic.model.Pet;
-import com.springframework.sf5petclinic.model.PetType;
-import com.springframework.sf5petclinic.model.Vet;
+import com.springframework.sf5petclinic.model.*;
 import com.springframework.sf5petclinic.services.ServiceOwner;
 import com.springframework.sf5petclinic.services.ServicePetType;
+import com.springframework.sf5petclinic.services.ServiceSpeciality;
 import com.springframework.sf5petclinic.services.ServiceVet;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,15 +16,25 @@ public class DataLoader implements CommandLineRunner {
     private final ServiceOwner serviceOwner;
     private final ServiceVet serviceVet;
     private final ServicePetType servicePetType;
+    private final ServiceSpeciality serviceSpeciality;
 
-    public DataLoader(ServiceOwner serviceOwner, ServiceVet serviceVet, ServicePetType servicePetType) {
+    public DataLoader(ServiceOwner serviceOwner, ServiceVet serviceVet, ServicePetType servicePetType, ServiceSpeciality serviceSpeciality) {
         this.serviceOwner = serviceOwner;
         this.serviceVet = serviceVet;
         this.servicePetType = servicePetType;
+        this.serviceSpeciality = serviceSpeciality;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        int count = servicePetType.findAll().size();
+
+        if (count == 0) {
+            loadData();
+        }
+    }
+
+    private void loadData() {
         PetType petTypeTemp = new PetType();
         petTypeTemp.setName("Dog");
         PetType savedPetTypeDog = servicePetType.save(petTypeTemp);
@@ -72,14 +80,30 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Owner Data loaded ...");
 
+        //  saving specialities repository
+        Speciality spcRadiology = new Speciality();
+        spcRadiology.setDescription("Radiology");
+        spcRadiology = serviceSpeciality.save(spcRadiology);
+
+        Speciality spcSurgery = new Speciality();
+        spcSurgery.setDescription("Surgery");
+        spcSurgery = serviceSpeciality.save(spcSurgery);
+
+        Speciality spcDentistry = new Speciality();
+        spcDentistry.setDescription("Dentistry");
+        spcDentistry = serviceSpeciality.save(spcDentistry);
+
+
         Vet vetTemp = new Vet();
         vetTemp.setFirstName("LeBron");
         vetTemp.setLastName("James");
+        vetTemp.getSpecialities().add(spcRadiology);
         serviceVet.save(vetTemp);
 
         vetTemp = new Vet();
         vetTemp.setFirstName("Tom");
         vetTemp.setLastName("Cruise");
+        vetTemp.getSpecialities().add(spcSurgery);
         serviceVet.save(vetTemp);
 
         System.out.println("Vet Data loaded ...");

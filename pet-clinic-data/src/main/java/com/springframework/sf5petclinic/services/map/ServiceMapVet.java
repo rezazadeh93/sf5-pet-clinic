@@ -1,6 +1,8 @@
 package com.springframework.sf5petclinic.services.map;
 
+import com.springframework.sf5petclinic.model.Speciality;
 import com.springframework.sf5petclinic.model.Vet;
+import com.springframework.sf5petclinic.services.ServiceSpeciality;
 import com.springframework.sf5petclinic.services.ServiceVet;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,12 @@ import java.util.Set;
 
 @Service
 public class ServiceMapVet extends AbstractMapService<Vet, Long> implements ServiceVet {
+    private final ServiceSpeciality serviceSpeciality;
+
+    public ServiceMapVet(ServiceSpeciality serviceSpeciality) {
+        this.serviceSpeciality = serviceSpeciality;
+    }
+
     @Override
     public Vet findByID(Long id) {
         return super.findByID(id);
@@ -20,7 +28,20 @@ public class ServiceMapVet extends AbstractMapService<Vet, Long> implements Serv
 
     @Override
     public Vet save(Vet object) {
-        return super.save(object);
+        if (object != null) {
+            if (object.getSpecialities() != null) {
+                object.getSpecialities().forEach(speciality -> {
+                    if (speciality.getId() == null) {
+                        Speciality savedSpc = serviceSpeciality.save(speciality);
+                        speciality.setId(savedSpc.getId());
+                    }
+                });
+            }
+
+            return super.save(object);
+        } else {
+            throw new RuntimeException("Vet cannot be null");
+        }
     }
 
     @Override
