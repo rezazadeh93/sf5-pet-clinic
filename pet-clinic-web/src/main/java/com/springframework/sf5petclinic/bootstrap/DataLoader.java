@@ -1,10 +1,7 @@
 package com.springframework.sf5petclinic.bootstrap;
 
 import com.springframework.sf5petclinic.model.*;
-import com.springframework.sf5petclinic.services.ServiceOwner;
-import com.springframework.sf5petclinic.services.ServicePetType;
-import com.springframework.sf5petclinic.services.ServiceSpeciality;
-import com.springframework.sf5petclinic.services.ServiceVet;
+import com.springframework.sf5petclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +14,15 @@ public class DataLoader implements CommandLineRunner {
     private final ServiceVet serviceVet;
     private final ServicePetType servicePetType;
     private final ServiceSpeciality serviceSpeciality;
+    private final ServiceVisit serviceVisit;
 
-    public DataLoader(ServiceOwner serviceOwner, ServiceVet serviceVet, ServicePetType servicePetType, ServiceSpeciality serviceSpeciality) {
+    public DataLoader(ServiceOwner serviceOwner, ServiceVet serviceVet, ServicePetType servicePetType,
+                      ServiceSpeciality serviceSpeciality, ServiceVisit serviceVisit) {
         this.serviceOwner = serviceOwner;
         this.serviceVet = serviceVet;
         this.servicePetType = servicePetType;
         this.serviceSpeciality = serviceSpeciality;
+        this.serviceVisit = serviceVisit;
     }
 
     @Override
@@ -59,6 +59,12 @@ public class DataLoader implements CommandLineRunner {
         ownerTemp.getPets().add(pet1);
         // here must be different with instructor's code because, owner must have an id, i think
         Owner savedOwner1 = serviceOwner.save(ownerTemp);
+
+        Visit jessieVisit1 = new Visit();
+        jessieVisit1.setPet(pet1);
+        jessieVisit1.setDate(LocalDate.now());
+        jessieVisit1.setDescription("Leg surgery");
+        Visit savedVisit1 = serviceVisit.save(jessieVisit1);
 
         ownerTemp = new Owner();
         ownerTemp.setFirstName("Mike");
